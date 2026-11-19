@@ -1,4 +1,4 @@
-// Mainstream SSL with BatchNorm projectors, aggressive recipe (lr x4, no warmup), ImageNet-100, ViT-S/16, 100 epochs, seed 0.
+// Mainstream SSL (VICReg/BYOL/MoCo v3 with BN projectors; SimCLR = solo-learn head, no BN), aggressive recipe (lr x4, no warmup), ImageNet-100, ViT-S/16, 100 epochs, seed 0.
 // Source: rpplus8:/data/junhan/ICLRExperiments/SADL-SSL-20261119 (result.json per run).
 const NS = 'http://www.w3.org/2000/svg';
 const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent?.appendChild(e); return e; };
@@ -7,7 +7,8 @@ const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS,
 export const SSL = [
   { name: 'VICReg', online: [52.02, 60.44], linear: [58.16, 64.58], knn: [51.84, 59.64] },
   { name: 'BYOL', online: [48.64, 53.52], linear: [58.18, 61.62], knn: [51.74, 54.00] },
-  { name: 'MoCo v3', online: [54.20, 55.72], linear: [62.38, 64.44], knn: [56.66, 57.46] }
+  { name: 'MoCo v3', online: [54.20, 55.72], linear: [62.38, 64.44], knn: [56.66, 57.46] },
+  { name: 'SimCLR', online: [57.68, 60.00], linear: [62.50, 63.94], knn: [56.78, 58.28] }
 ];
 const LABEL = { online: 'Online linear accuracy', linear: 'Frozen-feature linear probe', knn: 'kNN accuracy' };
 

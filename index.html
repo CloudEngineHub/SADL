@@ -12,7 +12,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://zju3dv.github.io/SADL/" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="assets/css/base.css?v=10" />
+  <link rel="stylesheet" href="assets/css/base.css?v=11" />
   <link rel="stylesheet" href="assets/css/sections.css?v=6" />
   <link rel="stylesheet" href="assets/css/results.css?v=6" />
   <script type="module" src="assets/js/main.js?v=6"></script>
@@ -276,15 +276,15 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <p class="kicker">07 · Mainstream SSL</p>
-      <h2 id="ssl-title">With BatchNorm projectors, SADL <em>stabilizes</em> aggressive SSL training.</h2>
-      <p>VICReg, BYOL and MoCo v3 all use a batch-normalized projector. On ImageNet-100 with ViT-S/16, we raise the learning rate four-fold and remove warmup, a recipe where training becomes unstable, and add SADL with no other change.</p>
+      <h2 id="ssl-title">SADL <em>stabilizes</em> aggressive training in mainstream SSL.</h2>
+      <p>We train VICReg, BYOL, MoCo v3 and SimCLR on ImageNet-100 with ViT-S/16, raise the learning rate four-fold and remove warmup, a recipe where training becomes unstable, and add SADL with no other change.</p>
     </div>
     <div class="res-grid reveal">
       <div class="card chart-card" id="ssl-card">
         <div class="controls"><div class="seg" role="group" aria-label="Metric"><button type="button" data-ssl="online" aria-pressed="true">Online</button><button type="button" data-ssl="linear" aria-pressed="false">Linear probe</button><button type="button" data-ssl="knn" aria-pressed="false">kNN</button></div></div>
         <h3 id="ssl-metric">Online linear accuracy (%)</h3>
         <div class="legend"><span><i class="base"></i>Method only</span><span><i class="sadl"></i>+ SADL</span><span style="color:var(--muted)">ImageNet-100 · ViT-S/16 · 100 epochs · lr ×4, no warmup</span></div>
-        <div class="chart-scroll"><svg class="dumb" id="ssl-svg" viewBox="0 0 720 360" role="img" aria-label="Bar chart: VICReg, BYOL and MoCo v3 accuracy with and without SADL under an aggressive learning-rate recipe"></svg></div>
+        <div class="chart-scroll"><svg class="dumb" id="ssl-svg" viewBox="0 0 720 360" role="img" aria-label="Bar chart: VICReg, BYOL, MoCo v3 and SimCLR accuracy with and without SADL under an aggressive learning-rate recipe"></svg></div>
         <div class="tip" id="ssl-tip" role="status"></div>
         <details class="table-view"><summary>Show as table</summary><table class="data" id="ssl-table"></table></details>
       </div>

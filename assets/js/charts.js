@@ -20,11 +20,11 @@ export function initGate() {
     el('text', { x: P.r, y: P.b + 36, 'text-anchor': 'end', fill: '#b4bfd2' }, g).textContent = 'supply k';
     el('text', { x: P.l, y: P.t - 4, fill: '#b4bfd2' }, g).textContent = 'penalty S';
     let d = ''; for (let i = 1; i <= 200; i++) { const kk = i / 200; d += (i === 1 ? 'M' : 'L') + X(kk).toFixed(1) + ' ' + Y(S(q, kk)).toFixed(1); }
-    el('path', { d: d + `L${X(1)} ${P.b}L${X(.005)} ${P.b}Z`, fill: 'rgba(33,150,243,.10)' }, g);
-    el('path', { d, fill: 'none', stroke: '#2196f3', 'stroke-width': 2 }, g);
-    el('line', { x1: X(q), x2: X(q), y1: P.t, y2: P.b, stroke: '#e53935', 'stroke-dasharray': '4 4', 'stroke-width': 1.5 }, g);
-    el('text', { x: X(q) + 6, y: P.t + 12, fill: '#e53935' }, g).textContent = 'demand q';
-    el('circle', { cx: X(k), cy: Y(S(q, k)), r: 6, fill: '#eef2f8', stroke: '#0e1524', 'stroke-width': 2 }, g);
+    el('path', { d: d + `L${X(1)} ${P.b}L${X(.005)} ${P.b}Z`, fill: 'rgba(79,143,209,.10)' }, g);
+    el('path', { d, fill: 'none', stroke: '#4f8fd1', 'stroke-width': 2 }, g);
+    el('line', { x1: X(q), x2: X(q), y1: P.t, y2: P.b, stroke: '#d4735f', 'stroke-dasharray': '4 4', 'stroke-width': 1.5 }, g);
+    el('text', { x: X(q) + 6, y: P.t + 12, fill: '#d4735f' }, g).textContent = 'demand q';
+    el('circle', { cx: X(k), cy: Y(S(q, k)), r: 6, fill: '#eef2f8', stroke: '#172033', 'stroke-width': 2 }, g);
     const v = S(q, k);
     document.getElementById('gate-read').textContent = v > 0 ? `S = ${v.toFixed(3)} · supply is short of demand, the correction is active.` : 'S = 0 · supply meets demand, SADL is silent.';
   }

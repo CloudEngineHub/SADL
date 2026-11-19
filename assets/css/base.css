@@ -1,19 +1,19 @@
 :root {
   color-scheme: dark;
-  --bg: #070b18;
-  --bg-2: #0a101c;
-  --surface: #0e1524;
-  --surface-2: #131c2e;
+  --bg: #0f1626;
+  --bg-2: #131b2d;
+  --surface: #172033;
+  --surface-2: #1d283d;
   --line: rgba(255, 255, 255, .09);
   --line-2: rgba(255, 255, 255, .16);
   --text: #eef2f8;
   --text-2: #b4bfd2;
   --muted: #7f8ba1;
-  --demand: #e53935;
-  --demand-soft: rgba(229, 57, 53, .14);
-  --supply: #2196f3;
-  --supply-soft: rgba(33, 150, 243, .14);
-  --baseline: #a3abbb;
+  --demand: #d4735f;
+  --demand-soft: rgba(212, 115, 95, .14);
+  --supply: #4f8fd1;
+  --supply-soft: rgba(79, 143, 209, .14);
+  --baseline: #b9c0cc;
   --pusht: #dc4960;
   --cube: #45a38a;
   --reacher: #3f7cc4;
@@ -41,7 +41,7 @@ button { font: inherit; color: inherit; }
 
 /* nav */
 .nav { position: fixed; inset: 0 0 auto; z-index: 50; transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; }
-.nav.is-solid { background: rgba(7, 11, 24, .78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-color: var(--line); }
+.nav.is-solid { background: rgba(15, 22, 38, .78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-color: var(--line); }
 .nav-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; letter-spacing: .04em; }
 .brand-mark { width: 26px; height: 26px; }

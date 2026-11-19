@@ -26,9 +26,9 @@ export function initRescue() {
     const y = P.t + P.row * i + P.row / 2, up = r.sadl >= r.base;
     el('text', { x: 0, y: y - 3, 'font-weight': 700, fill: '#eef2f8' }, g).textContent = `${r.model} · seed ${r.seed}`;
     el('text', { x: 0, y: y + 14, 'font-size': 11.5 }, g).textContent = r.span + (r.note ? ` · ${r.note}` : '');
-    el('line', { x1: X(r.base), x2: X(r.sadl), y1: y, y2: y, stroke: up ? 'rgba(33,150,243,.45)' : 'rgba(255,255,255,.22)', 'stroke-width': 3 }, g);
-    el('circle', { cx: X(r.base), cy: y, r: 7, fill: '#a3abbb', stroke: '#0e1524', 'stroke-width': 2 }, g);
-    el('circle', { cx: X(r.sadl), cy: y, r: 8, fill: '#2196f3', stroke: '#0e1524', 'stroke-width': 2 }, g);
+    el('line', { x1: X(r.base), x2: X(r.sadl), y1: y, y2: y, stroke: up ? 'rgba(79,143,209,.45)' : 'rgba(255,255,255,.22)', 'stroke-width': 3 }, g);
+    el('circle', { cx: X(r.base), cy: y, r: 7, fill: '#b9c0cc', stroke: '#172033', 'stroke-width': 2 }, g);
+    el('circle', { cx: X(r.sadl), cy: y, r: 8, fill: '#4f8fd1', stroke: '#172033', 'stroke-width': 2 }, g);
     const d = r.sadl - r.base;
     el('text', { x: Math.max(X(r.base), X(r.sadl)) + 14, y: y + 4, 'font-weight': 700, fill: '#eef2f8', class: 'num' }, g).textContent = (d >= 0 ? '+' : '') + d.toFixed(1);
     const hit = el('rect', { x: 0, y: y - P.row / 2 + 3, width: 640, height: P.row - 6, fill: 'transparent' }, g);

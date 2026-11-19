@@ -36,10 +36,10 @@ export function initControl() {
       const y = P.t + P.row * i + P.row / 2;
       el('text', { x: 0, y: y - 4, 'font-weight': 700, fill: '#eef2f8' }, g).textContent = row.model;
       el('text', { x: 0, y: y + 14, 'font-size': 12 }, g).textContent = row.backend + ' attention';
-      for (const [m, s, c] of [[bm, bs, '#a3abbb'], [sm, ss, '#2196f3']]) el('line', { x1: X(m - s), x2: X(m + s), y1: y, y2: y, stroke: c, 'stroke-width': 6, 'stroke-opacity': .25, 'stroke-linecap': 'round' }, g);
+      for (const [m, s, c] of [[bm, bs, '#b9c0cc'], [sm, ss, '#4f8fd1']]) el('line', { x1: X(m - s), x2: X(m + s), y1: y, y2: y, stroke: c, 'stroke-width': 6, 'stroke-opacity': .25, 'stroke-linecap': 'round' }, g);
       el('line', { x1: X(bm), x2: X(sm), y1: y, y2: y, stroke: 'rgba(255,255,255,.22)', 'stroke-width': 2 }, g);
-      const b = el('circle', { cx: X(bm), cy: y, r: 7, fill: '#a3abbb', stroke: '#0e1524', 'stroke-width': 2 }, g);
-      const s = el('circle', { cx: X(sm), cy: y, r: 8, fill: '#2196f3', stroke: '#0e1524', 'stroke-width': 2 }, g);
+      const b = el('circle', { cx: X(bm), cy: y, r: 7, fill: '#b9c0cc', stroke: '#172033', 'stroke-width': 2 }, g);
+      const s = el('circle', { cx: X(sm), cy: y, r: 8, fill: '#4f8fd1', stroke: '#172033', 'stroke-width': 2 }, g);
       el('text', { x: X(sm) + 14, y: y + 4, 'font-weight': 700, fill: '#eef2f8', class: 'num' }, g).textContent = sm.toFixed(1);
       el('text', { x: X(bm) - 12, y: y + 4, 'text-anchor': 'end', class: 'num' }, g).textContent = bm.toFixed(1);
       const hit = el('rect', { x: P.l - 6, y: y - P.row / 2 + 4, width: P.r - P.l + 12, height: P.row - 8, fill: 'transparent' }, g);

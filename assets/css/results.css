@@ -30,7 +30,7 @@ table.data th:first-child, table.data td:first-child { text-align: left; }
 .geo-list { padding: 10px; display: flex; flex-direction: column; gap: 4px; max-height: 560px; overflow: auto; }
 .geo-item { display: flex; justify-content: space-between; align-items: center; gap: 10px; border: 0; background: transparent; text-align: left; padding: 11px 14px; border-radius: 10px; cursor: pointer; color: var(--text-2); font-size: 14.5px; font-weight: 600; }
 .geo-item:hover { background: rgba(255, 255, 255, .04); }
-.geo-item[aria-pressed="true"] { background: rgba(33, 150, 243, .12); color: var(--text); box-shadow: inset 2px 0 0 var(--supply); }
+.geo-item[aria-pressed="true"] { background: rgba(79, 143, 209, .12); color: var(--text); box-shadow: inset 2px 0 0 var(--supply); }
 .geo-item .sr { font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 600; font-size: 13px; }
 .geo-item[aria-pressed="true"] .sr { color: var(--supply); }
 .geo-stage { position: relative; min-height: 560px; overflow: hidden; }

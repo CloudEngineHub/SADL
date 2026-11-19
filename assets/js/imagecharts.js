@@ -28,7 +28,7 @@ export async function initImageCharts() {
     accSvg.innerHTML = '';
     const ga = el('g', { 'font-family': 'Inter,Segoe UI,sans-serif', 'font-size': 11 }, accSvg);
     for (const v of niceTicks(lo, hi)) { el('line', { x1: P.l, x2: W - P.r, y1: ya(v), y2: ya(v), stroke: 'rgba(255,255,255,.07)' }, ga); el('text', { x: P.l - 8, y: ya(v) + 4, 'text-anchor': 'end', fill: '#7f8ba1' }, ga).textContent = v; }
-    for (const [key, color] of [['baseline', '#a3abbb'], ['sadl', '#2196f3']]) {
+    for (const [key, color] of [['baseline', '#b9c0cc'], ['sadl', '#4f8fd1']]) {
       const s = d[key];
       let band = ''; s.forEach(([m, sd], i) => { band += (i ? 'L' : 'M') + X(E[i]).toFixed(1) + ' ' + ya(m + sd).toFixed(1); });
       for (let i = n - 1; i >= 0; i--) band += 'L' + X(E[i]).toFixed(1) + ' ' + ya(s[i][0] - s[i][1]).toFixed(1);
@@ -42,13 +42,13 @@ export async function initImageCharts() {
     const gg = el('g', { 'font-family': 'Inter,Segoe UI,sans-serif', 'font-size': 11 }, gainSvg);
     for (const v of niceTicks(glo, ghi, 3)) { el('line', { x1: P.l, x2: W - P.r, y1: yg(v), y2: yg(v), stroke: v === 0 ? 'rgba(255,255,255,.28)' : 'rgba(255,255,255,.07)' }, gg); el('text', { x: P.l - 8, y: yg(v) + 4, 'text-anchor': 'end', fill: '#7f8ba1' }, gg).textContent = (v > 0 ? '+' : '') + v; }
     let area = `M${X(E[0])} ${yg(0)}`; d.gain.forEach(([m], i) => { area += `L${X(E[i]).toFixed(1)} ${yg(m).toFixed(1)}`; }); area += `L${X(E[n - 1])} ${yg(0)}Z`;
-    el('path', { d: area, fill: '#2196f3', 'fill-opacity': .18 }, gg);
-    el('path', { d: d.gain.map(([m], i) => (i ? 'L' : 'M') + X(E[i]).toFixed(1) + ' ' + yg(m).toFixed(1)).join(''), fill: 'none', stroke: '#2196f3', 'stroke-width': 1.6 }, gg);
+    el('path', { d: area, fill: '#4f8fd1', 'fill-opacity': .18 }, gg);
+    el('path', { d: d.gain.map(([m], i) => (i ? 'L' : 'M') + X(E[i]).toFixed(1) + ' ' + yg(m).toFixed(1)).join(''), fill: 'none', stroke: '#4f8fd1', 'stroke-width': 1.6 }, gg);
     for (const t of niceTicks(E[0], E[n - 1], 4)) el('text', { x: X(t), y: G.b + 18, 'text-anchor': 'middle', fill: '#7f8ba1' }, gg).textContent = t;
     el('text', { x: W - P.r, y: G.b + 34, 'text-anchor': 'end', fill: '#b4bfd2' }, gg).textContent = 'epoch';
     for (const c of d.checkpoints) {
       const i = E.indexOf(c.epoch); if (i < 0) continue;
-      el('circle', { cx: X(c.epoch), cy: yg(c.gain), r: 4.5, fill: '#eef2f8', stroke: '#0e1524', 'stroke-width': 2 }, gg);
+      el('circle', { cx: X(c.epoch), cy: yg(c.gain), r: 4.5, fill: '#eef2f8', stroke: '#172033', 'stroke-width': 2 }, gg);
     }
     // checkpoint tiles
     const [early, late] = d.checkpoints;

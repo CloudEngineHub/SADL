@@ -31,7 +31,7 @@ export function initBars() {
     rows.forEach((r, i) => {
       const [model, reg, bm, bs, sm, ss] = r;
       const cx = P.l + gw * (i + (i >= 3 ? 1.5 : .5)) + gw * .1;
-      for (const [k, m, s, col] of [[0, bm, bs, '#a3abbb'], [1, sm, ss, '#2196f3']]) {
+      for (const [k, m, s, col] of [[0, bm, bs, '#b9c0cc'], [1, sm, ss, '#4f8fd1']]) {
         const x = cx + (k ? 2 : -bw - 2);
         const bar = el('rect', { x, y: Y(m), width: bw, height: P.b - Y(m), rx: 4, fill: col }, g);
         bar.style.transformOrigin = `${x}px ${P.b}px`;

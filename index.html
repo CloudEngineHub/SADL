@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SADL · Demand-Supply Geometry of Representation Collapse</title>
+  <meta name="description" content="SADL (Supply And Demand Loss): a plug-in, one-sided encoder constraint that prevents representation collapse in self-supervised learning, with no auxiliary networks or extra parameters." />
+  <meta property="og:title" content="SADL: On the Demand-Supply Geometry of Representation Collapse" />
+  <meta property="og:description" content="Constrain the encoder only when its supply falls short of the demand. Collapse rate 50% → 0% over ten seeds." />
+  <meta property="og:image" content="https://zju3dv.github.io/SADL/assets/figures/og.jpg" />
+  <meta property="og:url" content="https://zju3dv.github.io/SADL/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://zju3dv.github.io/SADL/" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/base.css?v=8" />
+  <link rel="stylesheet" href="assets/css/sections.css?v=6" />
+  <link rel="stylesheet" href="assets/css/results.css?v=6" />
+  <script type="module" src="assets/js/main.js?v=6"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="SADL home"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="9" cy="16" r="6" fill="none" stroke="#e53935" stroke-width="2.6"/><circle cx="23" cy="16" r="6" fill="none" stroke="#2196f3" stroke-width="2.6"/><path d="M14 16h4" stroke="#eef2f8" stroke-width="2.6" stroke-linecap="round"/></svg><span class="wm"><span class="s">S</span><span class="a">A</span><span class="d">D</span><span class="l">L</span></span></a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#geometry">Geometry</a><a href="#insight">Insight</a><a href="#method">Method</a><a href="#results">Results</a><a href="#rescue">Rescue</a><a href="#images">Images</a><a href="#citation">Citation</a>
+    </nav>
+    <div class="nav-cta"><a class="btn sm" href="https://github.com/zju3dv/SADL" target="_blank" rel="noopener">GitHub ↗</a></div>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top" aria-labelledby="title">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="wrap hero-copy">
+    <p class="kicker"><b>Self-supervised representation learning</b> · JEPA · World models</p>
+    <h1 id="title"><span class="wm" aria-label="SADL"><span class="s">S</span><span class="a">A</span><span class="d">D</span><span class="l">L</span></span>: On the Demand-Supply Geometry of Representation Collapse</h1>
+    <p class="tagline">A plug-in loss that keeps encoders from collapsing: it compares what the regularizer <strong style="color:var(--demand)">demands</strong> with what the encoder can <strong style="color:var(--supply)">supply</strong>, and acts only on the shortfall.</p>
+    <ul class="authors" aria-label="Authors">
+      <li><a href="https://davidsunok.github.io/" style="text-decoration:none">Junhan Sun</a><sup>1</sup></li><li>Yigui Feng<sup>2</sup></li><li>Mingzhe Liu<sup>2</sup></li><li>Haoyan Xu<sup>2</sup></li><li>Lei Ye<sup>2</sup></li><li>Ziqi Han<sup>2</sup></li><li>Hanru Bai<sup>3</sup></li><li>Yanzhao Zhang<sup>3</sup></li><li class="author-break" aria-hidden="true"></li><li>Hao Zhao<sup>2,4,†</sup></li><li>Guofeng Zhang<sup>1,5,†</sup></li>
+    </ul>
+    <p class="affils"><span><sup>1</sup>State Key Laboratory of CAD&amp;CG, Zhejiang University</span><span><sup>2</sup>RoboParty Lab</span><span><sup>3</sup>Alibaba Group</span><span><sup>4</sup>AIR, Tsinghua University</span><span><sup>5</sup>InSpatio</span></p>
+    <p class="corr">† Corresponding authors</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="https://arxiv.org/abs/2611.21596" target="_blank" rel="noopener">Paper · arXiv ↗</a>
+      <a class="btn" href="https://arxiv.org/pdf/2611.21596" target="_blank" rel="noopener">PDF</a>
+      <a class="btn" href="https://github.com/zju3dv/SADL" target="_blank" rel="noopener">Code ↗</a>
+      <a class="btn" href="#film">Video</a>
+      <a class="btn" href="#citation">BibTeX</a>
+    </div>
+    <div class="stats" role="list" aria-label="Key results">
+      <div class="stat" role="listitem"><div class="stat-v num">50%<span class="arrow">→</span><span class="to">0%</span></div><div class="stat-l">collapse rate over ten random seeds (LeWM and INTACT)</div></div>
+      <div class="stat" role="listitem"><div class="stat-v num"><span class="to">3.4–6.4×</span></div><div class="stat-l">encoder effective rank after one epoch, vs. the same model without SADL</div></div>
+      <div class="stat" role="listitem"><div class="stat-v num"><span class="to">1/20–1/303</span></div><div class="stat-l">latent prediction error after one epoch, relative to baseline</div></div>
+      <div class="stat" role="listitem"><div class="stat-v num">&gt;<span class="to">95%</span></div><div class="stat-l">INTACT search-free control success with several Demand Regularizers</div></div>
+      <div class="stat" role="listitem"><div class="stat-v num"><span class="to">0</span></div><div class="stat-l">auxiliary networks, extra parameters, or architecture changes</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="film" aria-labelledby="film-title">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">Overview · 3 min</p>
+      <h2 id="film-title">The idea in one film.</h2>
+    </div>
+    <div class="film reveal">
+      <video controls playsinline preload="none" poster="assets/video/sadl-intro-poster.webp?v=2" aria-label="SADL research overview video with English narration">
+        <source src="assets/video/sadl-intro.mp4?v=3" type="video/mp4" />
+        <track kind="captions" srclang="en" label="English" src="assets/video/sadl-intro-en.vtt" default />
+      </video>
+    </div>
+    <div class="abstract reveal">
+      <p class="kicker">Abstract</p>
+      <p>In Joint-Embedding Predictive Architectures (JEPAs), <strong>a well-constrained projector output does not by itself prevent representation collapse.</strong> We find that, from initialization, the encoder representation is dominated by a component shared by different inputs. A batch-normalized projector removes this component, so regularization after the projector cannot correct it, and the differences between representations shrink until they collapse. We propose SADL (Supply And Demand Loss), which keeps the original training objective and constrains the encoder directly when needed. SADL compares the representation differences that the projector output demands with the differences the encoder can retain and pass on to the projector, and adds a constraint on the encoder <strong>only when supply falls short of demand.</strong> It works with different Demand Regularizers and introduces no auxiliary networks, additional trainable parameters, or architectural changes. In single-task and jointly trained four-task LeWorldModel (LeWM) and INTACT experiments, SADL lowers the collapse rate over ten random seeds from 50% to 0%. After one epoch of training, encoder effective rank is 3.4–6.4× that of the corresponding baseline without SADL, and latent prediction error falls to 1/20–1/303 of it. Without additional tuning, SADL stays robust as its loss weight spans orders of magnitude, and with several Demand Regularizers INTACT exceeds 95% mean search-free control success. On four image datasets, SADL also consistently improves accuracy and stability across random seeds.</p>
+    </div>
+  </div>
+</section>
+<section class="section alt" id="geometry" aria-labelledby="geometry-title">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">01 · Any Demand Regularizer</p>
+      <h2 id="geometry-title">Gaussian or not, the encoder keeps up with <span class="d">what is demanded</span>.</h2>
+      <p>SADL does not assume a target geometry. With eight Demand Regularizers, including non-Gaussian and density-free ones, INTACT exceeds 92% search-free success after one epoch; seven of eight reach 95.03–95.81%. Drag to rotate the actual learned endpoints.</p>
+    </div>
+    <div class="geo reveal">
+      <div class="card geo-list" id="geo-list" role="group" aria-label="Demand Regularizer"></div>
+      <div class="card geo-stage" id="geo-stage">
+        <canvas id="geo-canvas" aria-label="3D PCA of learned endpoint representations"></canvas>
+        <div class="geo-hud"><div class="name" id="geo-name">SIGReg</div><div class="sr">Epoch-1 control success <b id="geo-sr">95.58%</b></div></div>
+        <div class="geo-legend"><span><i style="background:var(--pusht)"></i>PushT</span><span><i style="background:var(--cube)"></i>Cube</span><span><i style="background:var(--reacher)"></i>Reacher</span><span><i style="background:var(--tworoom)"></i>TwoRoom</span></div>
+        <div class="geo-hint" id="geo-hint"></div>
+      </div>
+    </div>
+    <!-- Held-out endpoint representations Z, INTACT epoch 1, training seed 0, 1,024 observations per task; PCA fitted jointly across tasks, separately per regularizer. Success rates are three-seed, four-task means. -->
+    <div class="glyphs reveal" aria-label="Glyph-shaped Demand Regularizer targets">
+      <figure class="card glyph"><img src="assets/figures/geometry-glyph-j.webp" alt="Endpoint latents shaped as the letter J" loading="lazy" /></figure>
+      <figure class="card glyph"><img src="assets/figures/geometry-glyph-e.webp" alt="Endpoint latents shaped as the letter E" loading="lazy" /></figure>
+      <figure class="card glyph"><img src="assets/figures/geometry-glyph-p.webp" alt="Endpoint latents shaped as the letter P" loading="lazy" /></figure>
+      <figure class="card glyph"><img src="assets/figures/geometry-glyph-a.webp" alt="Endpoint latents shaped as the letter A" loading="lazy" /></figure>
+    </div>
+    <!-- Even a target as arbitrary as a letter works: separately trained glyph Demand Regularizers, single training seed, four-task Direct success. -->
+  </div>
+</section>
+<section class="section" id="insight" aria-labelledby="insight-title">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">02 · The blind spot</p>
+      <h2 id="insight-title">A well-regularized output <span class="d">cannot see</span> what the encoder has lost.</h2>
+      <p>At initialization the encoder representation <span class="math">H</span> is almost entirely one vector shared by every input: sample variation carries about 0.01% of its energy. A batch-normalized projector subtracts the batch mean, so moving all of <span class="math">H</span> along that shared direction leaves <span class="math">Z</span> unchanged. The Demand Regularizer and the task loss, both computed from <span class="math">Z</span>, get zero gradient there.</p>
+    </div>
+    <div class="ns reveal">
+      <div class="card ns-stage">
+        <svg class="ns-svg" id="ns-svg" viewBox="0 0 760 400" role="img" aria-label="Interactive illustration: encoder points H shifted by a shared vector; the batch-normalized projector output Z does not move."></svg>
+      </div>
+      <div class="card ns-panel">
+        <p class="kicker">Try it · illustration</p>
+        <div class="range-row"><div class="lab"><span>Shared shift added to every row of <span class="math">H</span></span><span class="num" id="ns-shift-v">0.0</span></div><input class="range" id="ns-shift" type="range" min="-1" max="1" step="0.01" value="0" aria-label="Shared shift" /></div>
+        <div class="range-row"><div class="lab"><span>Sample variation in <span class="math">H</span></span><span class="num" id="ns-spread-v">0.30</span></div><input class="range" id="ns-spread" type="range" min="0.02" max="1" step="0.01" value="0.3" aria-label="Sample variation" style="accent-color:var(--supply)" /></div>
+        <div class="seg" role="group" aria-label="Projector normalization"><button type="button" data-norm="bn" aria-pressed="true">Train-mode BN</button><button type="button" data-norm="none" aria-pressed="false">No normalization</button></div>
+        <div class="ns-readout"><div><b id="ns-dz">0.000</b><span>change in <span class="math">Z</span> from the shift</span></div><div><b id="ns-cef">2%</b><span>energy in sample variation of <span class="math">H</span></span></div></div>
+        <!-- Toy two-dimensional illustration of the mechanism, not training data. With train-mode BN the shared shift is invisible to Z; whatever variation H loses, losses on Z cannot restore. -->
+      </div>
+    </div>
+    <div class="card energy reveal" id="energy">
+      <h3>Fraction of energy in sample variation · after one epoch</h3>
+      <!-- LeWM, Flash attention + SIGReg. Fixed-probe medians across four tasks and ten training seeds. The rest of the energy sits in the shared component. -->
+      <div class="ebar"><span>Encoder <span class="math">H</span> · baseline</span><div class="ebar-track"><div class="ebar-fill base" data-w="3.3"></div></div><span class="v">3.3%</span></div>
+      <div class="ebar"><span>Encoder <span class="math">H</span> · + SADL</span><div class="ebar-track"><div class="ebar-fill sadl" data-w="98.6"></div></div><span class="v">98.6%</span></div>
+      <div class="ebar"><span>Endpoint <span class="math">Z</span> · baseline</span><div class="ebar-track"><div class="ebar-fill base" data-w="35.5"></div></div><span class="v">35.5%</span></div>
+      <div class="ebar"><span>Endpoint <span class="math">Z</span> · + SADL</span><div class="ebar-track"><div class="ebar-fill sadl" data-w="99.0"></div></div><span class="v">99.0%</span></div>
+    </div>
+  </div>
+</section>
+<section class="section alt" id="method" aria-labelledby="method-title">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">03 · Method</p>
+      <h2 id="method-title">Read the <span class="d">demand</span> at the output. Repair the <em>supply</em> at the encoder.</h2>
+      <p>SADL keeps the task loss and the Demand Regularizer unchanged. It reads a detached demand capacity <span class="math">q</span> from <span class="math">Z</span>, measures the supply capacity <span class="math">k</span> of <span class="math">H</span>, and adds a Supply Regularizer on the encoder only when <span class="math">k &lt; q</span>.</p>
+    </div>
+    <div class="card flow reveal">
+      <svg viewBox="0 0 1120 250" role="img" aria-label="Pipeline: input x, encoder E theta, representation H, projector P phi with batch normalization, endpoint Z, Demand Regularizer D of Z. SADL reads demand q from Z with stop-gradient and supply k from H, and applies the Supply Regularizer S to H.">
+        <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#b4bfd2"/></marker><marker id="ahs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2196f3"/></marker><marker id="ahd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#e53935"/></marker></defs>
+        <g font-family="Inter,Segoe UI,sans-serif" font-size="15" fill="#eef2f8">
+          <rect x="20" y="60" width="90" height="64" rx="12" fill="#131c2e" stroke="rgba(255,255,255,.16)"/><text x="65" y="92" text-anchor="middle" dominant-baseline="central" font-family="Cambria Math,Times New Roman,serif" font-style="italic" font-size="24">x</text>
+          <path d="M110 92h52" stroke="#b4bfd2" stroke-width="2" marker-end="url(#ah)"/>
+          <rect x="166" y="48" width="170" height="88" rx="14" fill="#131c2e" stroke="rgba(255,255,255,.16)"/><text x="251" y="86" text-anchor="middle" font-weight="700">Encoder</text><text x="251" y="112" text-anchor="middle" font-family="Cambria Math,Times New Roman,serif" font-style="italic" font-size="19" fill="#b4bfd2">E<tspan font-size="13" dy="4">θ</tspan></text>
+          <path d="M336 92h52" stroke="#b4bfd2" stroke-width="2" marker-end="url(#ah)"/>
+          <circle cx="420" cy="92" r="30" fill="rgba(33,150,243,.14)" stroke="#2196f3" stroke-width="2"/><text x="420" y="92" text-anchor="middle" dominant-baseline="central" font-family="Cambria Math,Times New Roman,serif" font-style="italic" font-size="26">H</text>
+          <path d="M450 92h52" stroke="#b4bfd2" stroke-width="2" marker-end="url(#ah)"/>
+          <rect x="506" y="48" width="190" height="88" rx="14" fill="#131c2e" stroke="rgba(255,255,255,.16)"/><text x="601" y="82" text-anchor="middle" font-weight="700">Projector <tspan font-family="Cambria Math,Times New Roman,serif" font-style="italic" font-weight="400">P<tspan font-size="12" dy="4">φ</tspan></tspan></text><text x="601" y="112" text-anchor="middle" font-size="13" fill="#7f8ba1">Linear · BatchNorm · …</text>
+          <path d="M696 92h52" stroke="#b4bfd2" stroke-width="2" marker-end="url(#ah)"/>
+          <circle cx="780" cy="92" r="30" fill="rgba(229,57,53,.14)" stroke="#e53935" stroke-width="2"/><text x="780" y="92" text-anchor="middle" dominant-baseline="central" font-family="Cambria Math,Times New Roman,serif" font-style="italic" font-size="26">Z</text>
+          <path d="M810 92h52" stroke="#e53935" stroke-width="2" marker-end="url(#ahd)"/>
+          <rect x="866" y="48" width="234" height="88" rx="14" fill="rgba(229,57,53,.08)" stroke="#e53935"/><text x="983" y="82" text-anchor="middle" font-weight="700">Demand Regularizer</text><text x="983" y="112" text-anchor="middle" font-family="Cambria Math,Times New Roman,serif" font-style="italic" font-size="19">λ<tspan font-size="12" dy="4">D</tspan><tspan dy="-4"> D(Z)</tspan></text>
+          <path d="M780 122v58H612" fill="none" stroke="#e53935" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#ahd)"/><text x="796" y="166" font-size="13" fill="#e53935">demand q · stop-gradient</text>
+          <rect x="430" y="164" width="180" height="62" rx="14" fill="rgba(33,150,243,.08)" stroke="#2196f3"/><text x="520" y="191" text-anchor="middle" font-weight="700">Supply Regularizer</text><text x="520" y="214" text-anchor="middle" font-family="Cambria Math,Times New Roman,serif" font-style="italic" font-size="16">λ<tspan font-size="11" dy="4">S</tspan><tspan dy="-4"> S(H, sg Z)</tspan></text>
+          <path d="M430 196H420V126" fill="none" stroke="#2196f3" stroke-width="2.4" marker-end="url(#ahs)"/><text x="300" y="214" font-size="13" fill="#2196f3">acts on H only if k &lt; q</text>
+          <text x="420" y="36" text-anchor="middle" font-size="12.5" fill="#7f8ba1">supply k from H</text><text x="780" y="36" text-anchor="middle" font-size="12.5" fill="#7f8ba1">endpoint</text>
+        </g>
+      </svg>
+    </div>
+    <div class="steps reveal">
+      <article class="card step demand"><p class="idx">01 · Demand capacity</p><h3>What the output asks for</h3><p><span class="math">q<sub>reg</sub></span> rises as the Demand Regularizer is satisfied; <span class="math">q<sub>exc</sub></span> measures current sample variation at <span class="math">Z</span>. Both are read with stop-gradient.</p><div class="eq">q = √(q<sub>reg</sub> · q<sub>exc</sub>)</div></article>
+      <article class="card step supply"><p class="idx">02 · Supply capacity</p><h3>What the encoder can give</h3><p><span class="math">k<sub>exc</sub></span> scores the energy and spread of sample differences in <span class="math">H</span>; <span class="math">k<sub>tr</sub></span> measures how much reaches <span class="math">Z</span> through regularized canonical correlations.</p><div class="eq">k = min{k<sub>exc</sub>, k<sub>tr</sub>}</div></article>
+      <article class="card step gate"><p class="idx">03 · One-sided Supply Regularizer</p><h3>Act only on the shortfall</h3><p>The penalty grows with the supply deficit and is exactly zero once supply meets demand, so SADL stays out of the way of a healthy encoder.</p><div class="eq">S = [log(q+ε) − log(k+ε)]<sub>+</sub><sup>2</sup></div></article>
+    </div>
+    <div class="card objective reveal">
+      <div>
+        <p class="kicker">Training objective</p>
+        <p class="eq-big">ℒ = ℒ<sub>task</sub> + λ<sub>D</sub> D(Z) + λ<sub>S</sub> S(H, sg Z)</p>
+        <!-- sg stops gradients through Z, so the correction acts directly on H. Demand is adaptive: across five control and image settings it stays within seed variation of the best tuned constant. -->
+        <div class="chips" style="justify-content:center"><span class="chip">No extra trainable parameters</span><span class="chip">No auxiliary networks</span><span class="chip">Original architecture and inference</span><span class="chip">Works with any Demand Regularizer</span></div>
+      </div>
+      <div>
+        <div class="range-row"><div class="lab"><span>Demand <span class="math">q</span></span><span class="num" id="g-q-v">0.65</span></div><input class="range" id="g-q" type="range" min="0.05" max="0.99" step="0.01" value="0.65" aria-label="Demand q" /></div>
+        <div class="range-row" style="margin-top:8px"><div class="lab"><span>Supply <span class="math">k</span></span><span class="num" id="g-k-v">0.30</span></div><input class="range" id="g-k" type="range" min="0.01" max="0.99" step="0.01" value="0.30" aria-label="Supply k" style="accent-color:var(--supply)" /></div>
+        <svg class="gate-plot" id="gate-plot" viewBox="0 0 520 260" role="img" aria-label="One-sided penalty S as a function of supply k for the chosen demand q"></svg>
+        <p class="gate-read" id="gate-read" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="results" aria-labelledby="results-title">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">04 · World-model control</p>
+      <h2 id="results-title">One epoch with SADL beats <em>two epochs</em> without it.</h2>
+      <p>LeWM and INTACT trained jointly on PushT, Cube, Reacher and TwoRoom. Within each pair the attention backend, update budget and evaluation are matched; the baseline keeps the task loss and SIGReg, with no SADL term.</p>
+    </div>
+    <div class="card chart-card reveal" id="bars-card" style="margin-bottom:20px">
+      <div class="controls"><div class="seg" role="group" aria-label="Training setting"><button type="button" data-bars="joint" aria-pressed="true">Joint four-task</button><button type="button" data-bars="single" aria-pressed="false">Single-task</button></div></div>
+      <h3>Epoch 1 · every Demand Regularizer lifts together (%)</h3>
+      <div class="legend"><span><i class="base"></i>Demand Regularizer only</span><span><i class="sadl"></i>+ SADL</span><span style="color:var(--muted)">mean ± SD, 3 training seeds</span></div>
+      <div class="chart-scroll"><svg class="dumb" id="bars-svg" viewBox="0 0 1080 400" role="img" aria-label="Bar chart of epoch-1 control success for LeWM and INTACT with three Demand Regularizers, with and without SADL"></svg></div>
+      <div class="tip" id="bars-tip" role="status"></div>
+      <details class="table-view"><summary>Show as table</summary><table class="data" id="bars-table"></table></details>
+    </div>
+    <div class="res-grid reveal">
+      <div class="card chart-card" id="ctrl-card">
+        <div class="controls">
+          <label>Epoch</label><div class="seg" role="group" aria-label="Epoch"><button type="button" data-epoch="1" aria-pressed="true">Epoch 1</button><button type="button" data-epoch="2" aria-pressed="false">Epoch 2</button></div>
+        </div>
+        <h3>Four-task mean control success (%)</h3>
+        <div class="legend"><span><i class="base"></i>SIGReg only</span><span><i class="sadl"></i>SIGReg + SADL</span></div>
+        <div class="chart-scroll"><svg class="dumb" id="ctrl-svg" viewBox="0 0 640 300" role="img" aria-label="Dumbbell chart of control success, baseline versus SADL, for four model and backend pairs"></svg></div>
+        <div class="tip" id="ctrl-tip" role="status"></div>
+        <!-- Mean ± sample SD over 3 training seeds. INTACT: search-free Direct control. LeWM: Pure-CEM planning. -->
+        <details class="table-view"><summary>Show as table</summary><table class="data" id="ctrl-table"></table></details>
+      </div>
+      <div class="big-claims">
+        <div class="card claim"><div class="v num">50% <small>→</small> <span style="color:var(--supply)">0%</span></div><p>Collapse rate over ten random seeds, single-task and four-task LeWM and INTACT.</p></div>
+        <div class="card claim"><div class="v num">14.5 <small>→</small> <span style="color:var(--supply)">52.7</span></div><p>LeWM encoder effective rank after one epoch.</p></div>
+        <div class="card claim"><div class="v num">96.3<small>%</small></div><p>INTACT + SADL at epoch 2, with either MATH or Flash attention (baseline 70.0 / 66.1).</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="rescue" aria-labelledby="rescue-title">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">05 · Rescue</p>
+      <h2 id="rescue-title">SADL can also <em>reopen</em> an encoder that has already collapsed.</h2>
+      <p>Starting from fixed near-collapsed checkpoints, training resumes either with the original Demand Regularizer only or with SADL added at its default weight. INTACT recovers from 18.9% to 68.3% control success within one more epoch. The checkpoints SADL rescues at its default weight λ<sub>S</sub> = .01 are shown below.</p>
+    </div>
+    <div class="res-grid reveal">
+      <div class="card chart-card" id="rescue-card">
+        <h3>Control success after continuation (%)</h3>
+        <div class="legend"><span><i class="base"></i>Continue without SADL</span><span><i class="sadl"></i>Continue with SADL</span></div>
+        <div class="chart-scroll"><svg class="dumb" id="rescue-svg" viewBox="0 0 640 360" role="img" aria-label="Dumbbell chart: control success after continuing from near-collapsed checkpoints, with and without SADL"></svg></div>
+        <div class="tip" id="rescue-tip" role="status"></div>
+        <details class="table-view"><summary>Show as table</summary><table class="data" id="rescue-table"></table></details>
+      </div>
+      <div class="big-claims">
+        <div class="card claim"><div class="v num">18.9 <small>→</small> <span style="color:var(--supply)">68.3</span></div><p>INTACT seed 42, epoch 1 → 2. Replicated on a second machine: 23.1 → 69.1.</p></div>
+        <div class="card claim"><div class="v num">+29.5<small> pts</small></div><p>INTACT seed 3072 (24.4 → 53.9).</p></div>
+        <div class="card claim"><div class="v num">+21.7<small> pts</small></div><p>LeWM seed 21, epoch 2 → 4 (25.3 → 46.9).</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="images" aria-labelledby="images-title">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">06 · Beyond control</p>
+      <h2 id="images-title">The same loss speeds up <em>image representation learning</em>.</h2>
+      <p>On ImageNet-LT, Galaxy10, CIFAR-10 and Imagenette, under matched budgets and Demand Regularizers, SADL improves early learning on all four datasets. Imagenette gains 8.91 points at epoch 20; the gap narrows to 0.44 points by epoch 800.</p>
+    </div>
+    <div class="img-grid reveal">
+      <div class="card chart-card" id="img-card">
+        <div class="controls"><div class="seg" role="group" aria-label="Dataset"><button type="button" data-ds="Imagenette" aria-pressed="true">Imagenette</button><button type="button" data-ds="ImageNet-LT" aria-pressed="false">ImageNet-LT</button><button type="button" data-ds="Galaxy10" aria-pressed="false">Galaxy10</button><button type="button" data-ds="CIFAR-10" aria-pressed="false">CIFAR-10</button></div></div>
+        <h3>Classification accuracy (%)</h3>
+        <div class="legend"><span><i class="base"></i>Baseline</span><span><i class="sadl"></i>+ SADL</span><span id="img-seeds" class="num"></span></div>
+        <svg class="line-chart" id="acc-svg" viewBox="0 0 720 222" role="img" aria-label="Accuracy over training epochs, baseline versus SADL"></svg>
+        <h3 class="sub">SADL minus its paired baseline (points)</h3>
+        <svg class="line-chart" id="gain-svg" viewBox="0 0 720 170" role="img" aria-label="Paired accuracy gain of SADL over baseline across epochs"></svg>
+        <div class="tip" id="img-tip" role="status"></div>
+      </div>
+      <div class="big-claims">
+        <div class="ck-row"><div class="card claim" id="ck-early"></div><div class="card claim" id="ck-late"></div></div>
+        <div class="card claim"><div class="v num" style="color:var(--supply)">23%</div><p>fewer updates to reach the baseline's final accuracy on Imagenette (23.2k → 17.8k; median of 3 seeds).</p></div>
+        <div class="card claim"><div class="v num" style="color:var(--supply)">10%</div><p>fewer updates to reach 90% of the baseline's final accuracy on ImageNet-LT (34.8k → 31.2k).</p></div>
+        <div class="card attn">
+          <div class="controls" style="margin-bottom:0"><div class="seg" role="group" aria-label="Attention example" id="attn-seg"><button type="button" data-attn="imagenet-1" aria-pressed="true">ImageNet-LT 1</button><button type="button" data-attn="imagenet-2" aria-pressed="false">2</button><button type="button" data-attn="galaxy-1" aria-pressed="false">Galaxy10 1</button><button type="button" data-attn="galaxy-2" aria-pressed="false">2</button></div></div>
+          <div class="attn-row"><figure><img id="attn-in" src="assets/figures/attention-imagenet-1-input.webp" alt="Input image" loading="lazy" />Input</figure><figure><img id="attn-base" src="assets/figures/attention-imagenet-1-baseline.webp" alt="Attention map, VISReg" loading="lazy" />VISReg</figure><figure><img id="attn-sadl" src="assets/figures/attention-imagenet-1-sadl.webp" alt="Attention map, SADL + VISReg" loading="lazy" />+ SADL</figure></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="citation" aria-labelledby="cite-title">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">Citation</p>
+      <h2 id="cite-title">BibTeX</h2>
+    </div>
+    <div class="card cite reveal" id="bib"><button type="button" class="btn sm" id="copy-bib">Copy</button><code id="bib-text">@article{sun2026sadl,
+  title   = {{SADL}: On the Demand-Supply Geometry of Representation Collapse},
+  author  = {Sun, Junhan and Feng, Yigui and Liu, Mingzhe and Xu, Haoyan and
+             Ye, Lei and Han, Ziqi and Bai, Hanru and Zhang, Yanzhao and
+             Zhao, Hao and Zhang, Guofeng},
+  journal = {arXiv preprint arXiv:2611.21596},
+  year    = {2026}
+}</code></div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div><span class="wm"><span class="s">S</span><span class="a">A</span><span class="d">D</span><span class="l">L</span></span> · Supply And Demand Loss<br>State Key Laboratory of CAD&amp;CG, Zhejiang University · RoboParty Lab · Alibaba Group · AIR, Tsinghua University · InSpatio</div>
+    <div><a href="https://arxiv.org/abs/2611.21596">arXiv</a> · <a href="https://github.com/zju3dv/SADL">GitHub</a> · <a href="https://zju3dv.github.io/INTACT-JEPA/">INTACT</a></div>
+  </div>
+</footer>
+</body>
+</html>

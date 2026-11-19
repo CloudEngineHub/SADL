@@ -1,0 +1,9 @@
+dataset:
+  name: null  # set from datasets.json
+  num_steps: ${num_frames}
+  frameskip: 5
+  keys_to_load:
+    - pixels
+    - action
+  keys_to_cache:
+    - action

@@ -1,0 +1,9 @@
+# Install after the repository's pinned training dependencies; Python 3.10 / CUDA 12.8.
+flash-attn-4==4.0.0b35
+quack-kernels==0.5.3
+nvidia-cutlass-dsl==4.6.2
+nvidia-cutlass-dsl-libs-base==4.6.2
+nvidia-cutlass-dsl-libs-core==4.6.2
+nvidia-cutlass-dsl-libs-cu12==4.6.2
+apache-tvm-ffi==0.1.11
+torch-c-dlpack-ext==0.1.5

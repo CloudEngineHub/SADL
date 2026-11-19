@@ -1,0 +1,96 @@
+{
+  "9": {
+    "fc2": {
+      "tile_m": 192,
+      "tile_n": 128,
+      "tile_k": null,
+      "num_warps": null,
+      "pingpong": true,
+      "is_dynamic_persistent": false,
+      "cluster_m": 1,
+      "cluster_n": 2,
+      "cluster_k": 1,
+      "swap_ab": true,
+      "max_swizzle_size": 8,
+      "device_capacity": 9,
+      "use_tma_gather": false
+    },
+    "input_gradient": {
+      "tile_m": 192,
+      "tile_n": 128,
+      "tile_k": null,
+      "num_warps": null,
+      "pingpong": true,
+      "is_dynamic_persistent": false,
+      "cluster_m": 1,
+      "cluster_n": 2,
+      "cluster_k": 1,
+      "swap_ab": true,
+      "max_swizzle_size": 8,
+      "device_capacity": 9,
+      "use_tma_gather": false
+    },
+    "preactivation_replay": {
+      "tile_m": 128,
+      "tile_n": 192,
+      "tile_k": null,
+      "num_warps": null,
+      "pingpong": true,
+      "is_dynamic_persistent": false,
+      "cluster_m": 2,
+      "cluster_n": 1,
+      "cluster_k": 1,
+      "swap_ab": true,
+      "max_swizzle_size": 8,
+      "device_capacity": 9,
+      "use_tma_gather": false
+    }
+  },
+  "12": {
+    "fc2": {
+      "tile_m": 128,
+      "tile_n": 64,
+      "tile_k": null,
+      "num_warps": null,
+      "pingpong": false,
+      "is_dynamic_persistent": true,
+      "cluster_m": 1,
+      "cluster_n": 1,
+      "cluster_k": 1,
+      "swap_ab": false,
+      "max_swizzle_size": 8,
+      "device_capacity": 12,
+      "use_tma_gather": false
+    },
+    "input_gradient": {
+      "tile_m": 64,
+      "tile_n": 128,
+      "tile_k": null,
+      "num_warps": null,
+      "pingpong": true,
+      "is_dynamic_persistent": true,
+      "cluster_m": 1,
+      "cluster_n": 1,
+      "cluster_k": 1,
+      "swap_ab": true,
+      "max_swizzle_size": 8,
+      "device_capacity": 12,
+      "use_tma_gather": false
+    },
+    "preactivation_replay": {
+      "tile_m": 128,
+      "tile_n": 192,
+      "tile_k": null,
+      "num_warps": null,
+      "pingpong": false,
+      "is_dynamic_persistent": true,
+      "cluster_m": 1,
+      "cluster_n": 1,
+      "cluster_k": 1,
+      "swap_ab": false,
+      "max_swizzle_size": 8,
+      "device_capacity": 12,
+      "use_tma_gather": false
+    }
+  }
+}

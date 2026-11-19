@@ -90,3 +90,7 @@
 .pillars li { font-size: clamp(16px, 1.5vw, 21px); font-weight: 750; letter-spacing: -.01em; color: var(--text); padding: 0 18px; }
 .pillars li + li { border-left: 2px solid var(--supply); }
 @media (max-width: 720px) { .pillars li { padding: 0 10px; } .pillars li + li { border-left-width: 1.5px; } }
+.pillars:has(+ .pillars-2) { margin-bottom: 8px; }
+.pillars-2 { margin-top: 0; }
+.pillars-2 li { color: var(--supply); }
+.pillars-2 li + li { border-left-color: var(--text-2); }

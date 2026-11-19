@@ -12,7 +12,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://zju3dv.github.io/SADL/" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="assets/css/base.css?v=9" />
+  <link rel="stylesheet" href="assets/css/base.css?v=10" />
   <link rel="stylesheet" href="assets/css/sections.css?v=6" />
   <link rel="stylesheet" href="assets/css/results.css?v=6" />
   <script type="module" src="assets/js/main.js?v=6"></script>
@@ -23,7 +23,7 @@
   <div class="wrap nav-inner">
     <a class="brand" href="#top" aria-label="SADL home"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="9" cy="16" r="6" fill="none" stroke="#d4735f" stroke-width="2.6"/><circle cx="23" cy="16" r="6" fill="none" stroke="#4f8fd1" stroke-width="2.6"/><path d="M14 16h4" stroke="#eef2f8" stroke-width="2.6" stroke-linecap="round"/></svg><span class="wm"><span class="s">S</span><span class="a">A</span><span class="d">D</span><span class="l">L</span></span></a>
     <nav class="nav-links" aria-label="Sections">
-      <a href="#geometry">Geometry</a><a href="#insight">Insight</a><a href="#method">Method</a><a href="#results">Results</a><a href="#rescue">Rescue</a><a href="#images">Images</a><a href="#citation">Citation</a>
+      <a href="#geometry">Geometry</a><a href="#insight">Insight</a><a href="#method">Method</a><a href="#results">Results</a><a href="#rescue">Rescue</a><a href="#images">Images</a><a href="#ssl">SSL</a><a href="#citation">Citation</a>
     </nav>
     <div class="nav-cta"><a class="btn sm" href="https://github.com/zju3dv/SADL" target="_blank" rel="noopener">GitHub ↗</a></div>
   </div>
@@ -268,6 +268,30 @@
           <div class="controls" style="margin-bottom:0"><div class="seg" role="group" aria-label="Attention example" id="attn-seg"><button type="button" data-attn="imagenet-1" aria-pressed="true">ImageNet-LT 1</button><button type="button" data-attn="imagenet-2" aria-pressed="false">2</button><button type="button" data-attn="galaxy-1" aria-pressed="false">Galaxy10 1</button><button type="button" data-attn="galaxy-2" aria-pressed="false">2</button></div></div>
           <div class="attn-row"><figure><img id="attn-in" src="assets/figures/attention-imagenet-1-input.webp" alt="Input image" loading="lazy" />Input</figure><figure><img id="attn-base" src="assets/figures/attention-imagenet-1-baseline.webp" alt="Attention map, VISReg" loading="lazy" />VISReg</figure><figure><img id="attn-sadl" src="assets/figures/attention-imagenet-1-sadl.webp" alt="Attention map, SADL + VISReg" loading="lazy" />+ SADL</figure></div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section alt" id="ssl" aria-labelledby="ssl-title">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">07 · Mainstream SSL</p>
+      <h2 id="ssl-title">With BatchNorm projectors, SADL <em>stabilizes</em> aggressive SSL training.</h2>
+      <p>VICReg, BYOL and MoCo v3 all use a batch-normalized projector. On ImageNet-100 with ViT-S/16, we raise the learning rate four-fold and remove warmup, a recipe where training becomes unstable, and add SADL with no other change.</p>
+    </div>
+    <div class="res-grid reveal">
+      <div class="card chart-card" id="ssl-card">
+        <div class="controls"><div class="seg" role="group" aria-label="Metric"><button type="button" data-ssl="online" aria-pressed="true">Online</button><button type="button" data-ssl="linear" aria-pressed="false">Linear probe</button><button type="button" data-ssl="knn" aria-pressed="false">kNN</button></div></div>
+        <h3 id="ssl-metric">Online linear accuracy (%)</h3>
+        <div class="legend"><span><i class="base"></i>Method only</span><span><i class="sadl"></i>+ SADL</span><span style="color:var(--muted)">ImageNet-100 · ViT-S/16 · 100 epochs · lr ×4, no warmup</span></div>
+        <div class="chart-scroll"><svg class="dumb" id="ssl-svg" viewBox="0 0 720 360" role="img" aria-label="Bar chart: VICReg, BYOL and MoCo v3 accuracy with and without SADL under an aggressive learning-rate recipe"></svg></div>
+        <div class="tip" id="ssl-tip" role="status"></div>
+        <details class="table-view"><summary>Show as table</summary><table class="data" id="ssl-table"></table></details>
+      </div>
+      <div class="big-claims">
+        <div class="card claim"><div class="v num">+8.4<small> pts</small></div><p>VICReg online accuracy, 52.0 → 60.4; kNN +7.8.</p></div>
+        <div class="card claim"><div class="v num">+4.9<small> pts</small></div><p>BYOL online accuracy, 48.6 → 53.5; linear probe +3.4.</p></div>
+        <div class="card claim"><div class="v num">0.38 <small>→</small> <span style="color:var(--supply)">0.99</span></div><p>Share of VICReg encoder energy carried by sample variation at the end of training.</p></div>
       </div>
     </div>
   </div>

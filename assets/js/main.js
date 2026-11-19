@@ -5,6 +5,7 @@ import { initControl } from './results.js';
 import { initImageCharts } from './imagecharts.js';
 import { initRescue } from './rescue.js';
 import { initBars } from './bars.js';
+import { initSSL } from './ssl.js';
 
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 
@@ -34,6 +35,7 @@ initControl();
 initImageCharts();
 initRescue();
 initBars();
+initSSL();
 
 // geometry viewer: load three.js only when the section approaches
 const geoList = $('#geo-list');

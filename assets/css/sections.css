@@ -94,3 +94,6 @@
 .pillars-2 { margin-top: 0; }
 .pillars-2 li { color: var(--supply); }
 .pillars-2 li + li { border-left-color: var(--text-2); }
+.pillars li { color: var(--supply); }
+.pillars li + li { border-left-color: var(--text-2); }
+.pillars-2 li { color: var(--demand); }

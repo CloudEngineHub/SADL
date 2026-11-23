@@ -29,6 +29,7 @@
     <a href="https://arxiv.org/abs/2611.21596"><img src="https://img.shields.io/badge/Paper-arXiv%3A2611.21596-B31B1B?style=flat-square" alt="Paper on arXiv"></a>
     <a href="https://zju3dv.github.io/SADL/"><img src="https://img.shields.io/badge/Project_Page-Live-4F8FD1?style=flat-square" alt="Live project page"></a>
     <a href="https://huggingface.co/DavidSunok/SADL"><img src="https://img.shields.io/badge/Hugging_Face-Checkpoints_and_Data-FFD21E?style=flat-square" alt="Hugging Face checkpoints and data"></a>
+    <a href="https://paperswithcode.co/paper/2611.21596#results"><img src="https://img.shields.io/badge/Papers_with_Code-Results-21CBCE?style=flat-square" alt="SADL results on Papers with Code"></a>
     <a href="#code"><img src="https://img.shields.io/badge/Code-Available-287745?style=flat-square" alt="World-model code"></a>
     <a href="https://zju3dv.github.io/SADL/#film"><img src="https://img.shields.io/badge/Video-3_min-D4735F?style=flat-square" alt="Project video"></a>
   </p>
